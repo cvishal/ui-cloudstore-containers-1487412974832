@@ -5,7 +5,7 @@ require_once("service-discovery.php");
 // Get our Catalog API endpoint from Service Discovery
 //$catalogRoute = getAPIRoute("Catalog-API");
 //$catalogRoute = "http://ms-catalogAPI-domical-directive.mybluemix.net";
-
+error_log("Request started");
 $application = getenv("sgroup_name");
 //echo "\r\napplication:" . $application;
 $application_json = json_decode($application, true);
@@ -18,6 +18,8 @@ if (substr( $applicationURI, 0, 3 ) === "ui-") {
 }
 //echo "\r\ncatalogHost:" . $catalogHost;    
 $catalogRoute = "http://" . $catalogHost;
+error_log("Catalog Route is ")
+error_log($CatalogRoute);
 
 // Get the products from our Catalog API
 $result = request("GET", $catalogRoute . "/items");
@@ -53,6 +55,7 @@ function addItem(item){
 }
 
 function orderItem(itemID){
+	error_log("New Order Processing Started");
 	// Create a random customer ID and count
 	var custID = Math.floor((Math.random() * 999) + 1); 
 	var count = Math.floor((Math.random() * 9999) + 1); 
@@ -77,6 +80,7 @@ function orderItem(itemID){
 			console.log("Status: " , textStatus); console.log("Error: " , errorThrown); 
 		}  
 	});
+	error_log("New Order Processing Done.");
 
 }
 </script>
@@ -114,12 +118,6 @@ function orderItem(itemID){
 		<h2>Some Other Neat Products</h2>
 		<hr>
 		<div id='itemWell' class="row small-up-2 large-up-4">
-	</div>
-	<div class="callout large secondary">
-		<div class="row">
-				<h5>Microservices Store Demo</h5>
-				<p>You can find the blog post associated with this demo <a href="https://developer.ibm.com/bluemix/2015/03/16/sample-application-using-microservices-bluemix/" target="_blank">here</a></p>
-		</div>
 	</div>
 </body>
 </html>
